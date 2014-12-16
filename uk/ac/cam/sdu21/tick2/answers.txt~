@@ -1,0 +1,40 @@
+1.  8*row + col
+
+2.  val % 8
+
+3.  val / 8
+
+4.
+java uk.ac.cam.sdu21.tick1.TestBit 0x2623321111233262 6
+true
+
+5.
+java uk.ac.cam.sdu21.tick1.TestBit 0x2623321111233262 34
+false
+
+6.
+
+     world                 col      row          result
+0x20A0600000000000L        0         0             0
+0x20A0600000000000L        4         4             1
+0x20A0600000000000L        6         6             5
+0x20A0600000000000L        4         5             2
+0x20A0600000000000L        4         6             3
+
+7. the implementation works for all the values
+
+javac uk/ac/cam/sdu21/tick2/TinyLife.java ; java uk.ac.cam.sdu21.tick2.TinyLife 0x1824428181422418L
+
+8.
+     world                 col      row          result
+0x20A0600000000000L        7         6            False
+0x20A0600000000000L        5         7            False 
+0x20A0600000000000L        5         5            True
+0x20A0600000000000L        5         6            True
+0x20A0600000000000L        0         0            False
+0x20A0600000000000L        6         6            False
+0x20A0600000000000L        6         7            True
+0x20A0600000000000L        4         6            True
+
+9.
+the implementation works for all the values

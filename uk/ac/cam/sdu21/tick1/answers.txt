@@ -1,0 +1,21 @@
+1.
++  int b=i+1;
++  int a;
++  int n = (a=b);
++  System.out.println(n);
+
+2.It prints 10 \n 9 \n, as the post-decrement is executed after the expression is evaluated
+3.If the postdecrement is repoaced with preincrement, it will be executed before evaluation,
+and the function will output 9 \n 9 \n
+
+4.
+i)4
+ii)7
+A similar algorithm was used for both - while 0x55 bitshifted by a certain amount was not 5 or 10880, the amount was incremented, and printed after exiting the while loop
+
+5.The number "1" has all its bits, totalling one, shifted left by n, which results in a single bit in the 2^n position
+
+6.
+(x>>4) & 4
+
+
