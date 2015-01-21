@@ -77,10 +77,11 @@ public class StringArrayLife {
 		boolean next[][] = new boolean[world.length][world[0].length];
 		for(int i=0; i<world.length; i++)
 			for (int j=0; j<world[i].length; j++)
-				if (computeCell(world,i,j))
-					setCell(next,i,j,true);
+				if (computeCell(world,j,i))
+					setCell(next,j,i,true);
 		return next;
 	}
+
 
 
 
@@ -91,6 +92,7 @@ public class StringArrayLife {
 			print(world);
 			userResponse = System.in.read();
 			world = nextGeneration(world);
+			//System.out.println(world[4][5]);
 		}
 	}
 
@@ -124,3 +126,4 @@ public class StringArrayLife {
 	 play(world);
 	}
 }
+// "A:B:20:5:0:0:01101000011001010000 00001000010001110111 10111000111010111001 00111100010011110111 10111101000101011011"

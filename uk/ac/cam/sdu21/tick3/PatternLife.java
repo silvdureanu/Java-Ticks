@@ -77,8 +77,8 @@ public class PatternLife {
 		boolean next[][] = new boolean[world.length][world[0].length];
 		for(int i=0; i<world.length; i++)
 			for (int j=0; j<world[i].length; j++)
-				if (computeCell(world,i,j))
-					setCell(next,i,j,true);
+				if (computeCell(world,j,i))
+					setCell(next,j,i,true);
 		return next;
 	}
 
