@@ -117,6 +117,8 @@ public class LoaderLife {
  	}
  	else if(args.length ==2) {
  		int index = Integer.parseInt(args[1]);
+ 		if (index<0 || index>= patterns.size())
+ 			throw new NumberFormatException();
  		Pattern p = patterns.get(index);
  		 System.out.println(p.getHeight());
 	 	boolean[][] world = new boolean[p.getHeight()][p.getWidth()];

@@ -29,6 +29,8 @@ public class Repeat {
       return "Error: insufficient arguments";
     try{
       int n = Integer.parseInt(args[1]);
+      if(n<1)
+        throw new NumberFormatException();
       String r = new String(args[0]);
       for (int i=2; i<=n; i++) {
         r+= " ";

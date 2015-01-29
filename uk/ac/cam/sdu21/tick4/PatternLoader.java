@@ -19,10 +19,10 @@ public class PatternLoader {
 		}
 
 		catch(PatternFormatException e) {
-			System.out.println("Bad input in file");
+			//System.out.println("Bad input in file");
 		}
 		catch(NumberFormatException e) {
-			System.out.println("Bad number in file");
+			//System.out.println("Bad number in file");
 		}
 
 
