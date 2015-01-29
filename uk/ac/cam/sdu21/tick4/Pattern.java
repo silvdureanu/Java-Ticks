@@ -9,6 +9,7 @@ public class Pattern {
  private int startCol;
  private int startRow;
  private String cells;
+ private String data;
 
  public String getName() {
   return name;
@@ -39,8 +40,14 @@ public class Pattern {
 	return cells;
  }
 
+ public String getData(){
+ 	return data;
+ }
+
  public Pattern(String format) throws PatternFormatException {
- 	try {
+ 
+ 	int i,j;
+ 	data=format;
  	if(format.length() == 0)
  		throw new PatternFormatException();
 
@@ -64,20 +71,27 @@ public class Pattern {
  	startCol = Integer.parseInt(parsed_string[4]);
  	startRow = Integer.parseInt(parsed_string[5]);
  	cells = parsed_string[6];
- 	}
 
- 	catch(NumberFormatException e) {
- 		throw new PatternFormatException();
- 	}
 
- 	catch(PatternFormatException e) {
-		throw new PatternFormatException();
-	}
+	String[] cell_rows = cells.split(" ");
+
+	int nr=cell_rows[0].length();
+	for(i=0; i<cell_rows.length; i++) {
+		char[] line = cell_rows[i].toCharArray();
+
+	 	if(line.length != nr)
+	 		throw new PatternFormatException();
+
+	 	for(j=0; j<line.length; j++)
+	 		if(!(line[j]=='0' || line[j]=='1'))
+	 			throw new PatternFormatException();
+	 }
+
 
  }
 
  public void initialise(boolean[][] world) throws PatternFormatException{
- 	try{
+ 	
  	String[] cell_rows = cells.split(" "); 
 
  	int nr = cell_rows[0].length();
@@ -85,7 +99,7 @@ public class Pattern {
  	int i,j;
  	for(i=0; i<height; i++)
 		for ( j=0; j<width; j++) 
-			world[i][j]=false;
+			world[i][j]=false; 
 	 	
 	for(i=startRow; i<startRow + cell_rows.length; i++ ){
 	 	char[] line = cell_rows[i-startRow].toCharArray();
@@ -100,10 +114,8 @@ public class Pattern {
 	 		if(line[j-startCol]=='1')
 	 			world[i][j]=true;
 	 	}
-	 }
+	 
 	}
-	catch(PatternFormatException e) {
-		throw new PatternFormatException();
-	}
+
  }
 } 

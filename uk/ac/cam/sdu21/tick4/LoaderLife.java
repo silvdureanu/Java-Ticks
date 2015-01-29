@@ -1,6 +1,8 @@
 package uk.ac.cam.sdu21.tick4; 
+import java.util.List;
+import java.util.LinkedList;
 
-public class PatternLife {
+public class LoaderLife {
 
 
 
@@ -95,19 +97,40 @@ public class PatternLife {
 	}
 
 
-	public static void main(String[] args) throws Exception, PatternFormatException {
+	public static void main(String[] args) throws Exception, PatternFormatException, NumberFormatException {
 	try{
 	 if(args.length==0)
 	 	throw new PatternFormatException();
-	 
-	 Pattern p = new Pattern(args[0]);
+
+
+ 	List<Pattern> patterns;
+ 	if(args[0].startsWith("http://")) 
+ 		patterns=PatternLoader.loadFromURL(args[0]);
+ 	else 
+ 		patterns=PatternLoader.loadFromDisk(args[0]);
+ 	int l=0;
+ 	if(args.length == 1) {
+ 		for(Pattern p: patterns) {
+ 			System.out.println(l + ") "+p.getData());
+ 			l++;
+ 		}
+ 	}
+ 	else if(args.length ==2) {
+ 		int index = Integer.parseInt(args[1]);
+ 		Pattern p = patterns.get(index);
+ 		 System.out.println(p.getHeight());
+	 	boolean[][] world = new boolean[p.getHeight()][p.getWidth()];
+		p.initialise(world);
+		play(world);
+
+ 	}
+
+	else throw new PatternFormatException();	 
 
 
 
-	 System.out.println(p.getHeight());
-	 boolean[][] world = new boolean[p.getHeight()][p.getWidth()];
-	 p.initialise(world);
-	 play(world);
+
+
 	}
 	catch(PatternFormatException e) {
 		System.out.println("Bad input");
