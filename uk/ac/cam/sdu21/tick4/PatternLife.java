@@ -104,7 +104,7 @@ public class PatternLife {
 
 
 
-	 System.out.println(p.getHeight());
+
 	 boolean[][] world = new boolean[p.getHeight()][p.getWidth()];
 	 p.initialise(world);
 	 play(world);

@@ -120,7 +120,7 @@ public class LoaderLife {
  		if (index<0 || index>= patterns.size())
  			throw new NumberFormatException();
  		Pattern p = patterns.get(index);
- 		 System.out.println(p.getHeight());
+
 	 	boolean[][] world = new boolean[p.getHeight()][p.getWidth()];
 		p.initialise(world);
 		play(world);

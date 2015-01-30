@@ -45,7 +45,7 @@ public class Pattern {
  }
 
  public Pattern(String format) throws PatternFormatException {
- 
+ 	try{
  	int i,j;
  	data=format;
  	if(format.length() == 0)
@@ -79,19 +79,20 @@ public class Pattern {
 	for(i=0; i<cell_rows.length; i++) {
 		char[] line = cell_rows[i].toCharArray();
 
-	 	if(line.length != nr)
-	 		throw new PatternFormatException();
+	 	/*if(line.length != nr)
+	 		throw new PatternFormatException();*/
 
 	 	for(j=0; j<line.length; j++)
 	 		if(!(line[j]=='0' || line[j]=='1'))
 	 			throw new PatternFormatException();
 	 }
 
-
+	}
+	catch(NumberFormatException d) { throw new PatternFormatException();}
  }
 
  public void initialise(boolean[][] world) throws PatternFormatException{
- 	
+
  	String[] cell_rows = cells.split(" "); 
 
  	int nr = cell_rows[0].length();
