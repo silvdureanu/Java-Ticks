@@ -40,6 +40,7 @@ public abstract class WorldImpl implements World {
  protected Color getCellAsColour(int col,int row) {
   return getCell(col,row) ? Color.BLACK : Color.WHITE;
  }  
+ 
  public void draw(Graphics g,int width, int height) {
   int worldWidth = getWidth();
   int worldHeight = getHeight();

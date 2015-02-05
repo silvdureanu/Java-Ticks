@@ -11,8 +11,8 @@ public class PackedWorld extends WorldImpl {
 
  private long cells;
 
- public PackedWorld(int w, int h) {
-   super(w,h);
+ public PackedWorld() {
+   super(8,8);
    cells = 0;
    // set cells initially to 0 
  }
