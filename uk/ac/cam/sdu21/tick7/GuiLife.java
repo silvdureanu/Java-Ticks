@@ -12,15 +12,37 @@ import javax.swing.border.EtchedBorder;
 import java.io.IOException;
 import java.util.List;
 import uk.ac.cam.acr31.life.World;
-import java.util.Timer;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
-import java.awt.event;
+import java.awt.event.ActionListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 
 public class GuiLife extends JFrame {
 
  PatternPanel patternPanel;
  ControlPanel controlPanel;
  GamePanel gamePanel;
+
+   private World world;
+  private int timeDelay = 500; //delay between updates (millisecs)
+  private int timeStep = 0;    //progress by (2 ^ timeStep) each time
+
+  private Timer playTimer = new Timer(timeDelay, new ActionListener() {
+
+   public void actionPerformed(ActionEvent e) {
+    doTimeStep();
+   }
+
+  });
+
+  void doTimeStep() {
+   if (world != null) {
+    world = world.nextGeneration(timeStep);
+    gamePanel.display(world);
+   }
+  }
 
  public GuiLife() {
   super("GuiLife");
@@ -70,12 +92,18 @@ public class GuiLife extends JFrame {
   return patternPanel;
 }
 
-
  private JComponent createControlPanel() { 
-  controlPanel = new ControlPanel();
-  addBorder(controlPanel,Strings.PANEL_CONTROL);
-  return controlPanel;
-}
+    controlPanel = new ControlPanel(){
+     protected void onSpeedChange(int value) {
+      playTimer.setDelay(1+(100-value)*10);
+     }
+     protected void onStepChange(int value) {
+     	timeStep = value;
+     }
+    };
+    addBorder(controlPanel,Strings.PANEL_CONTROL);
+    return controlPanel;
+ }
 
  public static void main(String[] args) {
   GuiLife gui = new GuiLife();
@@ -83,9 +111,10 @@ public class GuiLife extends JFrame {
     String url="http://www.cl.cam.ac.uk/teaching/current/ProgJava/life.txt";
     List<Pattern> list = PatternLoader.loadFromURL(url);
     gui.patternPanel.setPatterns(list);
-    World w = gui.controlPanel.initialiseWorld(list.get(1));
-    gui.gamePanel.display(w);
+    gui.world = gui.controlPanel.initialiseWorld(list.get(1));
+    gui.gamePanel.display(gui.world);
     } catch (IOException ioe) {} catch(PatternFormatException e) {System.out.println("Bad pattern format");}
+    gui.playTimer.start();
   gui.setVisible(true);
  }
 }
