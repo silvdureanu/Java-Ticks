@@ -21,9 +21,14 @@ public class GamePanel extends JPanel {
  private int height = 1;//Height of game board in pixels
  private World current = null;
 
- public Dimension getPreferredSize() {
+
+public Dimension getPreferredSize() {
   return new Dimension(width, height);
- }
+}
+
+protected void setZoom(int value) {
+  zoom = value;
+}
 
  protected void paintComponent(Graphics g) {
   if (current == null) return;

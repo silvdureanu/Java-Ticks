@@ -2,6 +2,7 @@ package uk.ac.cam.sdu21.tick7;
 
 
 import java.awt.BorderLayout;
+import uk.ac.cam.acr31.life.hash.HashWorld;
 import uk.ac.cam.acr31.life.World;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
@@ -19,6 +20,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
 public abstract class ControlPanel extends JPanel {
 
  private JSlider zoomSlider;
@@ -27,9 +29,11 @@ public abstract class ControlPanel extends JPanel {
  private JRadioButton longButton;
  private JRadioButton arrayButton;
  private JRadioButton agingButton;
+  private JRadioButton hashButton;
  
  protected abstract void onSpeedChange(int value);
  protected abstract void onStepChange(int value);
+ protected abstract void onZoomChange(int value);
 
  private JSlider createNewSlider(int min, int max, int start, String s) {
   Box panel = Box.createHorizontalBox();
@@ -53,7 +57,7 @@ public abstract class ControlPanel extends JPanel {
   super();
   setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
-  zoomSlider = createNewSlider(1,20,1,Strings.CONTROL_ZOOM);
+  zoomSlider = createNewSlider(1,20,10,Strings.CONTROL_ZOOM);
   add(Box.createVerticalStrut(10)); //add 10px of extra space
   stepSlider = createNewSlider(0,10,0,Strings.CONTROL_STEP); 
   add(Box.createVerticalStrut(10)); //add 10px of extra space
@@ -74,6 +78,13 @@ public abstract class ControlPanel extends JPanel {
    }
   });
 
+  zoomSlider.addChangeListener(new ChangeListener() {
+  public void stateChanged(ChangeEvent e) {
+   if (!zoomSlider.getValueIsAdjusting())
+    onZoomChange(zoomSlider.getValue());
+   }
+  });
+
   
   Box worldPanel = Box.createHorizontalBox();
   add(worldPanel);
@@ -82,6 +93,7 @@ public abstract class ControlPanel extends JPanel {
   longButton = createNewButton(Strings.STORAGE_LONG,group,worldPanel);
   arrayButton = createNewButton(Strings.STORAGE_ARRAY,group,worldPanel);
   agingButton = createNewButton(Strings.STORAGE_AGING,group,worldPanel);
+  hashButton = createNewButton(Strings.STORAGE_HASH,group,worldPanel);
   arrayButton.setSelected(true);
   add(Box.createVerticalStrut(10)); //add 10px of extra space
  } 
@@ -94,6 +106,8 @@ public abstract class ControlPanel extends JPanel {
    result = new ArrayWorld(p.getWidth(),p.getHeight());
   } else if (agingButton.isSelected()) {
    result = new AgingWorld(p.getWidth(),p.getHeight());
+  } else if (hashButton.isSelected()) {
+    result = new HashWorld(p.getWidth(),p.getHeight());
   }
   if (result != null)  p.initialise(result);
   return result;
